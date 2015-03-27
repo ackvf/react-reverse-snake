@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Reverse Snake</title>
+    <meta http-equiv='Content-type' content='text/html; charset=utf-8'>
+    <style type="text/css">
+/* -------------------------------------- */
+body {
+  background-color: #ddd;
+}
+
+.board {
+  margin: auto;
+  background: #222;
+  overflow: hidden;
+  outline: none;
+}
+
+.snake, .empty {
+  height: 30px;
+  width: 30px;
+}
+
+.snake, .dot, .food, .empty {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+}
+
+.snake {
+  background: #39c;
+  box-shadow: 0px 0px 5px #39c;
+}
+
+.dot, .food {
+  background: #9a3;
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px #9b3;
+  height: 24px;
+  margin: 3px;
+  width: 24px;
+}
+
+.food {
+  background: #071;
+  box-shadow: 0px 0px 5px #071;
+}
+
+.game-over .snake {
+  background: #d04;
+  box-shadow: 0px 0px 5px #d04;
+}
+/* -------------------------------------- */
+    </style>
+  </head>
+  <body>
+    <script src="build/react.min.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+    <script type="text/jsx" src="snake.js"></script>
+  </body>
+</html>
