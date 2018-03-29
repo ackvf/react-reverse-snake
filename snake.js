@@ -25,6 +25,7 @@ var Game = React.createClass({
 			foodReadyCounterValue: foodReadyCounterValue,
 			foodReadyCounter: foodReadyCounterValue,
 			gameOver: false,
+			victory: false,
 			numCols: 20,
 			numRows: 20,
 			snakeDirection: 39 // default right
@@ -133,14 +134,12 @@ var Game = React.createClass({
 			head = this.getNextIndex(snake[0], snakeDirection, numRows, numCols);
 
 		if (snake.indexOf(head) != -1) {
-			this.setState({gameOver: true});
-			alert("gameover");
+			this.setState({gameOver: true, victory: true});
 			return;
 		}
 
 		if (head == dot) {
-			this.setState({gameOver: true});
-			alert("gameover");
+			this.setState({gameOver: true, victory: false});
 			return;
 		}
 
@@ -186,7 +185,7 @@ var Game = React.createClass({
 
 	keyPressed: React.autoBind(function(event) {
 		var keypressed = event.nativeEvent.keyCode;
-		if (keypressed >= 37 || keypressed <= 40) {
+		if (keypressed >= 37 && keypressed <= 40) {
 			this.nextDotMove = keypressed;
 		}
 	}),
@@ -205,7 +204,27 @@ var Game = React.createClass({
 			}
 		}
 
+
+		var message = (
+			!this.state.gameOver
+			? <div>
+					<h1>Hurry, kill the snake!</h1>
+					<p>Maybe use arrows...</p>
+				</div>
+			: this.state.victory
+				? <div>
+						<h1>Snake's dead, long live the snake. You've won. Gratz.</h1>
+						<p>Press F5 to summon new snake</p>
+					</div>
+				: <div>
+						<h1>You're dead, long live the snake. You've lost.</h1>
+						<p>Press F5 to start again</p>
+					</div>
+		)
+
+
 		return (
+			<div>
 				<div
 					ref="board"
 					class={'board' + (this.state.gameOver ? ' game-over' : '')}
@@ -214,8 +233,13 @@ var Game = React.createClass({
 					style={{width: numCols * cellSize, height: numRows * cellSize}}>
 					{cells}
 				</div>
+				<div
+					class={'message' + (this.state.gameOver ? ' game-over' : '')}
+					style={{width: numCols * cellSize}}
+				>{message}</div>
+			</div>
 		);
 	}
 });
 
-React.renderComponent(<Game />, document.body);
+React.renderComponent(<Game />, document.getElementById('game'));
